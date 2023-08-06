@@ -1,12 +1,10 @@
-hangman = ["___", " |", " |", " O", "/|\ ", " |", "/ \ "]
-word = "nice"
+hangman = ["___", " |", " |", " O", "/|\ ", " |", "/ \ "] #hangman parts
+word = "better" #word to guess
 blanks = "_"
 letter_list = list(word) #list of letters in the word
 guess_list = [] #list for adding correct letter guesses by user
 hangman_parts = [] #list for adding hangman parts when guess is incorrect
 wrong_guesses = 0 #number of wrong answers
-score = 0 #player score
-
 print("The word is of {} letters.".format(len(word)))
 
 #generating blanks corresponding the number of letters in the word
@@ -16,32 +14,38 @@ print(' '.join(guess_list))
 
 #game loop
 while wrong_guesses <= len(hangman) - 1:
+    #condition for when the word to guess does not exist
     if len(word) == 0:
         break
     user = input("Guess a letter or the whole word: ")
+    #condition for when player guesses the whole word correctly
     if user == word:
-        print('You won!!')
+        print("You win!!")
         break
-
+    #condition for checking if the letter player guesses is in the word
     if user in word:
+        #loop for getting index of every letter in the word
         for index, letter in enumerate(word):
+            #condition for filling the correct letters the player guesses into guess_list
             if letter == user:
                 guess_list[index] = letter
+        #condition for when player correctly guesses all the letters of the word
         if guess_list == letter_list:
-            print("You won.")
+            print("You win.")
             print(" ".join(guess_list))
             break
         print(" ".join(guess_list))
 
     else:
-        print("Incorrect. Try Again.")
-        #adding hangman components to a list as incorrect guesses are entered and printing the newly created list items
+        print("Incorrect.")
+        #loop for adding hangman components to a list as incorrect guesses are entered
         hangman_parts.append(hangman[wrong_guesses])
         for i in range(0, len(hangman_parts)):
             print(hangman_parts[i])
 
         wrong_guesses += 1
+        #condition for when the hangman is complete
         if wrong_guesses == len(hangman):
-            print('You lose.')
+            print("You lose.")
+            print("The word was {}.".format(word.upper()))
             break
-
