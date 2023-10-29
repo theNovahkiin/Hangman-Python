@@ -31,9 +31,13 @@ while wrong_guesses <= len(hangman) - 1:
     if user == word:
         print("You win!!")
         break
-    #condition for when player enters previously guessed incorrect letter
-    while user in incorrect_list:
+    #condition for when player enters previously guessed correct letter
+    while user in guess_list:
         print("Already guessed. Guess another letter.")
+        user = input("Guess a letter or the whole word: ")
+    # condition for when player enters previously guessed incorrect letter
+    while user in incorrect_list:
+        print("Incorrect. Already guessed.")
         user = input("Guess a letter or the whole word: ")
     #condition for checking if the letter player guesses is in the word
     if user in word:
